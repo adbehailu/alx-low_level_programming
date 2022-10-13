@@ -1,8 +1,8 @@
 #include <stdio.h>
 /**
- * prints the size of various types on the computer
+ * main - Entry point
  *
- * program should return 0
+ * Return: Alwayes 0 (success)
  */
 int main(void)
 {
