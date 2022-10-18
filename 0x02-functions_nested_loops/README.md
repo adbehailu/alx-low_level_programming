@@ -1,1 +1,0 @@
-fanctionand nested loop
