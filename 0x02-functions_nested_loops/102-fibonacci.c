@@ -23,7 +23,7 @@ int main(void)
 			printf("%ld\n", j);
 		}
 		next = j + k;
-		next = j + k;
+		j = k;
 		k = next;
 	}
 
