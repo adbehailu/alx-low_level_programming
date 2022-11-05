@@ -1,1 +1,1 @@
-static liberary
+C - Static libraries
