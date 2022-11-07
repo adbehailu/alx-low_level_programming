@@ -1,45 +1,87 @@
-#include <stdlib.h>
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+char *_strcat(char *dest, char *src);
 
 /**
- * *argstostr - concatenates all the arguments of the program
- * @ac: number of arguments
- * @av: array of arguments
+ * argstostr - concatenates all the arguments
+ * @av: the content
+ * @ac: the size of the content
  *
- * Return: Pointer to the new string (Success), NULL (Error)
+ * Return: a pointer to a new string
  */
 char *argstostr(int ac, char **av)
 {
-	int i, j, k, len;
-	char *str;
+	char *new, *salt;
+	int i, j, k;
 
-	if (ac <= 0 || av == NULL)
-		return (NULL);
-
-	for (i = 0; i < ac; i++)
+	if (ac == 0 || av == NULL)
 	{
-		for (j = 0; av[i][j]; j++)
-			len++;
-		len++;
+		return (NULL);
 	}
-
-	str = malloc(sizeof(char) * (len + 1));
-
-	if (str == NULL)
-		return (NULL);
-
-	k = 0;
-
-	for (i = 0; i < ac; i++)
+	else
 	{
-		for (j = 0; av[i][j]; j++)
+		for (i = 0, k = 0 ; i < ac ; i++, k++)
 		{
-			str[k] = av[i][j];
-			k++;
+			for (j = 0 ; av[i][j] != '\0' ; j++, k++)
+			{
+				;
+			}
 		}
-		str[k] = '\n';
-		k++;
+		new = malloc(sizeof(char) * (k + 1));
+		salt = "\n";
+		for (i = 0 ; i < ac ; i++)
+		{
+			new = _strcat(new, av[i]);
+			if (new == NULL)
+			{
+				return (NULL);
+			}
+			if (i + 1 < ac)
+			{
+				new = _strcat(new, salt);
+				if (new == NULL)
+				{
+					return (NULL);
+				}
+			}
+		}
+	}
+	new = _strcat(new, salt);
+	if (new == NULL)
+	{
+		return (NULL);
+	}
+	return (new);
+}
+
+/**
+ * _strcat - concatenates two strings
+ * @dest: input parameter string
+ * @src: input parameter string
+ *
+ * Return: dest
+ */
+char *_strcat(char *dest, char *src)
+{
+	int a;
+	int b;
+
+	a = 0;
+
+	while (dest[a] != 0)
+	{
+		a++;
 	}
 
-	return (str);
+	b = 0;
+
+	while (src[b] != 0)
+	{
+		dest[a] = src[b];
+		a++;
+		b++;
+	}
+	return (dest);
 }
