@@ -1,15 +1,15 @@
 #include "dog.h"
-#include <string.h>
+#include <stdlib.h>
 
 /**
  * new_dog - creates a new dog
- * @name: name member of the dog
- * @age: age member of the dog
- * @owner: owner member of the dog
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
  *
- * Return: pointer to the new dog_t
+ * Return: struct dog
+ * if fails, returns NULL
  */
-
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *p_dog;
