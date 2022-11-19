@@ -1,1 +1,1 @@
-viraiabel function
+variable function
