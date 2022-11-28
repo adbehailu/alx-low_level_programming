@@ -1,41 +1,72 @@
 #include "lists.h"
 
 /**
- * find_listint_loop - Finds the loop contained in
- * a listint_t linked list
- * @head: A pointer to the head of the listint_t list
+ * free_listp2 - frees a linked list
+ * @head: head of a list
  *
- * Return: If there is no loop - NULL
- * Otherwise - the address of the node where the loop starts
+ * Return: no return
  */
-listint_t *find_listint_loop(listint_t *head)
+void free_listp2(listp_t **head)
 {
-	listint_t *tortoise, *hare;
+	listp_t *temp;
+	listp_t *curr;
 
-	if (head == NULL || head->next == NULL)
-		return (NULL);
-
-	tortoise = head->next;
-	hare = (head->next)->next;
-
-	while (hare)
+	if (head != NULL)
 	{
-		if (tortoise == hare)
+		curr = *head;
+		while ((temp = curr) != NULL)
 		{
-			tortoise = head;
+			curr = curr->next;
+			free(temp);
+		}
+		*head = NULL;
+	}
+}
 
-			while (tortoise != hare)
+/**
+ * free_listint_safe - frees a linked list
+ * @h: head of a list
+ *
+ * Return: size of the list that was freed
+ */
+size_t free_listint_safe(listint_t **h)
+{
+	size_t nnodes = 0;
+	listp_t *hptr, *new, *add;
+	listint_t *curr;
+
+	hptr = NULL;
+	while (*h != NULL)
+	{
+		new = malloc(sizeof(listp_t));
+
+		if (new == NULL)
+			exit(98);
+
+		new->p = (void *)*h;
+		new->next = hptr;
+		hptr = new;
+
+		add = hptr;
+
+		while (add->next != NULL)
+		{
+			add = add->next;
+			if (*h == add->p)
 			{
-				tortoise = tortoise->next;
-				hare = hare->next;
+				*h = NULL;
+				free_listp2(&hptr);
+				return (nnodes);
 			}
-
-			return (tortoise);
 		}
 
-		tortoise = tortoise->next;
-		hare = (hare->next)->next;
+		curr = *h;
+		*h = (*h)->next;
+		free(curr);
+		nnodes++;
 	}
 
-	return (NULL);
+	*h = NULL;
+	free_listp2(&hptr);
+	return (nnodes);
 }
