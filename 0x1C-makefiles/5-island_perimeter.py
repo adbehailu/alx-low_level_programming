@@ -1,54 +1,25 @@
 #!/usr/bin/python3
-
-"""
-    contains island_perimeter
-"""
+"""Module to define a function island_perimeter"""
 
 
 def island_perimeter(grid):
+    """Function to calculate an island described in a grid perimeter
+    grid is a list of list of integers:
+    0 represents a water zone
+    1 represents a land zone
+    One cell is a square with side length 1
     """
-        computes the perimeter of an 'island' in a grid
-        0 represents water zone
-        1 represents land zone
-        one cell in the grid represents a square piece of land of length 1
-    """
-    tile_perimeter = 4
-    total_permimeter = 0
-    for row in range(len(grid)):
-        for col in range(len(grid[row])):
-            if grid[row][col] == 1:
-                total_permimeter += tile_perimeter
-                borders = get_borders(col, row, grid)
-                total_permimeter -= borders
-    return total_permimeter
+    width = len(grid[0])
+    height = len(grid)
+    edges = 0
+    size = 0
 
-
-def get_borders(col, row, grid):
-    """
-        returns the border of a cell with it's neighboring cells
-    """
-    vertical_borders = 0
-    horizontal_borders = 0
-    if (row - 1) >= 0:
-        if grid[row - 1][col]:
-            vertical_borders += 1
-    if (row + 1) < len(grid):
-        if grid[row + 1][col]:
-            vertical_borders += 1
-    if (col - 1) >= 0:
-        if grid[row][col - 1]:
-            horizontal_borders += 1
-    if (col + 1) < len(grid[row]):
-        if grid[row][col + 1]:
-            horizontal_borders += 1
-    return vertical_borders + horizontal_borders
-
-if __name__ == "__main__":
-    grid = [
-        [0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 0],
-        [0, 1, 0, 0, 1, 0],
-        [0, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0]
-    ]
-    print(island_perimeter(grid))
+    for i in range(height):
+        for j in range(width):
+            if grid[i][j] == 1:
+                size += 1
+                if (j > 0 and grid[i][j - 1] == 1):
+                    edges += 1
+                if (i > 0 and grid[i - 1][j] == 1):
+                    edges += 1
+    return size * 4 - edges * 2
