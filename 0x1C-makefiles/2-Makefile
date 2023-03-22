@@ -1,10 +1,9 @@
 CC = gcc
-SRC = main.c holberton.c
-OBJ = $(SRC:%.c=%.o)
-NAME = holberton
+SRC = main.c school.c
+OBJ = $(SRC:.c=.o)
+NAME = school
 
-%.o: %.c m.h
-	${CC} -c -o $@ $<
-
-all: ${OBJ}
-	${CC} ${OBJ} -o ${NAME}
+all: $(OBJ)
+	@echo "Compiling..."
+	@$(CC) $(OBJ) -o $(NAME)
+	@echo "Done."
